@@ -1,6 +1,7 @@
 import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { fetchStarships } from '../utils/fetchStarships';
+import { URL_STARSHIPS } from '../../constants';
+import { fetchResource } from '../../utils/utils';
 import Starship from './Starship';
 
 const Starships = () => {
@@ -10,21 +11,21 @@ const Starships = () => {
 	useEffect(() => {
 		setLoader(true);
 
-		fetchStarships().then(data => {
+		fetchResource(URL_STARSHIPS).then(data => {
 			setLoader(false);
 			setStarships(data);
 		});
 	}, []);
 
 	if (loader) {
-		return <Box sx={{display: 'flex'}}><CircularProgress /></Box>
+		return <Box sx={{display: 'flex', justifyContent: 'center'}}><CircularProgress /></Box>
 	};
 
 	const starshipsList = starships.slice(0, 10);
 
 	return (
 		<>
-			<h2>Select starship</h2>
+			<h2 style={{ textAlign: 'center' }}>Select starship</h2>
 			{starshipsList && starshipsList.map(starship => (
 				<Starship key={starship.name} name={starship.name} />
 			))}

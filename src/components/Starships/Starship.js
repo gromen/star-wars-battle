@@ -2,9 +2,9 @@ import { Box, ButtonBase, Card, CardContent, CardMedia, Typography } from '@mui/
 
 const Starship = ({ name }) => {
 	return (
-		<Box display="inline-block">
+		<Box display={{ display: 'inline-block' }}>
 			<ButtonBase>
-				<Card sx={{ maxWidth: 345 }}>
+				<Card sx={{ width: 345, margin: '5px' }}>
 					<CardMedia
 						component="img"
 						height="140"

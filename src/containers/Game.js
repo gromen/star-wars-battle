@@ -1,10 +1,11 @@
-import Starships from '../components/Starships';
+import People from '../components/People/People';
+import Starships from '../components/Starships/Starships';
 
 const Game = () => {
-
 	return (
 		<>
 			<Starships />
+			<People />
 		</>
 	)
 };
