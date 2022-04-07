@@ -1,10 +1,19 @@
 import { Box, ButtonBase, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { useContext } from 'react';
+import Context from '../../store/context';
 
-const Starship = ({ name }) => {
+const Character = ({ name }) => {
+	const { onSelectCharacter } = useContext(Context);
+
+	const onClickCharacter = () => {
+		onSelectCharacter(name)
+	}
+
+
 	return (
 		<Box display={{ display: 'inline-block' }}>
-			<ButtonBase>
-				<Card sx={{ width: 345, margin: '5px' }}>
+			<ButtonBase onClick={onClickCharacter}>
+				<Card sx={{ width: 200, margin: '5px' }}>
 					<CardMedia
 						component="img"
 						height="140"
@@ -31,4 +40,4 @@ const Starship = ({ name }) => {
 	)
 };
 
-export default Starship;
+export default Character;
