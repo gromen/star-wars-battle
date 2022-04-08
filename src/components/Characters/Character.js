@@ -13,6 +13,7 @@ const Character = ({ type, name = type, crew, mass }) => {
 		onPlayersSelected
 	} = useContext(Context);
 	const typePeople = type === 'people' || selectedCharacters === 'people'
+
 	const onClickCharacter = () => {
 		onSelectCharacter(type)
 	}

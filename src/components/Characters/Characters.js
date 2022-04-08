@@ -6,27 +6,26 @@ import { fetchResource } from '../../utils/utils';
 import Character from './Character';
 
 const Characters = ({ type }) => {
-	const { selectedPlayers, onAvailableCharactersList } = useContext(Context);
-	const [characters, setCharacters] = useState([]);
+	const { selectedPlayers, onAvailableCharactersList, availableCharactersList } = useContext(Context);
 	const [loader, setLoader] = useState(false);
 
-	const memoizedCharacterUrl = useMemo(() => type === 'people' ? URL_PEOPLE : URL_STARSHIPS, [type]);
+	const characterUrl = useMemo(() => type === 'people' ? URL_PEOPLE : URL_STARSHIPS, [type]);
 
 	useEffect(() => {
 		setLoader(true);
 
-		fetchResource(memoizedCharacterUrl).then(data => {
+		fetchResource(characterUrl).then(data => {
 			setLoader(false);
-			setCharacters(data);
 			onAvailableCharactersList(data);
-		});
-	}, [memoizedCharacterUrl]);
+		}).catch(error => console.error(error));
+	}, [characterUrl]);
 
 	if (loader) {
 		return <Box sx={{display: 'flex', justifyContent: 'center'}}><CircularProgress /></Box>
 	}
+	// get 10 characters from the list
+	const characterList = availableCharactersList.slice(0, 10);
 
-	const characterList = characters.slice(Math.random(), 10);
 	return (
 		<>
 			<h2 style={{ textAlign: 'center' }}>{`Select player ${selectedPlayers.length + 1}`}</h2>
