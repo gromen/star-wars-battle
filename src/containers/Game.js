@@ -1,26 +1,25 @@
 import { useContext } from 'react';
 import Character from '../components/Characters/Character';
 import Characters from '../components/Characters/Characters';
+import SelectedPlayers from '../components/SelectedPlayers/SelectedPlayers';
 import Context from '../store/context';
 
 const Game = () => {
-	const { selectedCharacters } = useContext(Context);
+	const { selectedCharacters, isPlayersSelected, selectedPlayers } = useContext(Context);
 
 	return (
 		<>
-			<h1 style={{textAlign: 'center'}}>Select type of players</h1>
-			{!selectedCharacters &&(
+			{!selectedCharacters && (
 				<>
-					<Character name="starship"/>
-					<Character name="people" />
+					<h1 style={{textAlign: 'center'}}>Select characters</h1>
+
+					<Character type="starship"/>
+					<Character type="people" />
 				</>
 			)}
 
-			{selectedCharacters && (
-				<>
-					<Characters type={selectedCharacters}/>
-				</>
-			)}
+			{selectedCharacters && !isPlayersSelected && <Characters type={selectedCharacters}/>}
+			{isPlayersSelected && <SelectedPlayers players={selectedPlayers}/>}
 		</>
 	)
 };
