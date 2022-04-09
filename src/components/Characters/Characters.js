@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Container, Grid } from '@mui/material';
+import { AppBar, Box, CircularProgress, Container, Grid, Toolbar, Typography } from '@mui/material';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { URL_PEOPLE, URL_STARSHIPS } from '../../constants';
 import Context from '../../store/context';
@@ -29,10 +29,16 @@ const Characters = ({ type }) => {
 	return (
 		<Container xs={10}>
 			<Grid container spacing={2} maxWidth="lg">
-				<Grid item xs={12}><h2 style={{ textAlign: 'center' }}>{`Select player ${selectedPlayers.length + 1}`}</h2></Grid>
+				<AppBar>
+					<Toolbar>
+						<Typography variant="h6" component="div">
+							{`Select player ${selectedPlayers.length + 1}`}
+						</Typography>
+					</Toolbar>
+				</AppBar>
 
 				{characterList && characterList.map(character => (
-					<Grid key={character.name} item xs={6} lg={2}>
+					<Grid key={character.name} item xs={6} lg={2} mt={14}>
 						<Character
 							name={character.name}
 							mass={character.mass}
