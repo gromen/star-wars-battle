@@ -3,7 +3,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { useContext } from 'react';
 import Game from './containers/Game';
 import Context from './store/context';
-import { ReactComponent as LogoStarWars } from './assets/star-wars.svg';
+import LogoStarWarsUrl from './assets/star-wars.svg';
 
 function App() {
 	const { isGameStarted, onGameStart } = useContext(Context);
@@ -13,7 +13,7 @@ function App() {
 			{!isGameStarted &&
 				<Grid container justifyContent="center" alignItems="center" height="100vh">
 					<Grid item xs={8} textAlign="center">
-						<LogoStarWars style={{ display: 'block', margin: 'auto' }} />
+						<img src={LogoStarWarsUrl} alt="star wars logo" width="100%"/>
 						<Button onClick={() => onGameStart(true)} variant="contained" endIcon={<SendIcon/>} size="large" >Start Game</Button>
 					</Grid>
 					<Grid item xs={8} textAlign="center">

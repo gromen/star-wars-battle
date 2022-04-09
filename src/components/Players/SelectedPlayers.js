@@ -49,7 +49,7 @@ const SelectedPlayers = () => {
 						mass={playerOne.mass}
 					/>
 				</Grid>
-				{!isGameFinished && <Grid item alignSelf="center" justifyContent="center" fontSize={50} m={8}>VS</Grid>}
+				{!isGameFinished && <Grid item alignSelf="center" justifyContent="center" fontSize={50} m={8} xs={12} lg={2} textAlign={'center'}>VS</Grid>}
 				<Grid item>
 					<Player playerNumber={2}
 						name={playerTwo.name}

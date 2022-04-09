@@ -32,7 +32,7 @@ const Characters = ({ type }) => {
 				<Grid item xs={12}><h2 style={{ textAlign: 'center' }}>{`Select player ${selectedPlayers.length + 1}`}</h2></Grid>
 
 				{characterList && characterList.map(character => (
-					<Grid key={character.name} item xs={3}>
+					<Grid key={character.name} item xs={6} lg={2}>
 						<Character
 							name={character.name}
 							mass={character.mass}
