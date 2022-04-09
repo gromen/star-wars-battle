@@ -1,24 +1,26 @@
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useContext } from 'react';
 import Game from './containers/Game';
 import Context from './store/context';
+import { ReactComponent as LogoStarWars } from './assets/star-wars.svg';
 
 function App() {
-	const { gameStarted, onGameStart } = useContext(Context);
-
-	const onClickStartGame = () => {
-		onGameStart()
-	}
+	const { isGameStarted, onGameStart } = useContext(Context);
 
   return (
     <div className="App">
-			{!gameStarted &&
-				<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-					<Button onClick={onClickStartGame} variant="contained" endIcon={<SendIcon />} size="large">Start Game</Button>
-				</div>
+			{!isGameStarted &&
+				<Grid container justifyContent="center" alignItems="center" height="100vh">
+					<Grid item xs={8} textAlign="center">
+						<LogoStarWars style={{ display: 'block', margin: 'auto' }} />
+						<Button onClick={() => onGameStart(true)} variant="contained" endIcon={<SendIcon/>} size="large" >Start Game</Button>
+					</Grid>
+					<Grid item xs={8} textAlign="center">
+					</Grid>
+				</Grid>
 			}
-			{gameStarted && <Game />}
+			{isGameStarted && <Game />}
     </div>
   );
 }

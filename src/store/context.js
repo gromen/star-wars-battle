@@ -1,43 +1,54 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 
 const Context = createContext({
-	gameStarted: false,
+	isGameStarted: false,
+	isGameFinished: false,
 	selectedCharacters: '',
 	selectedPlayerOne: '',
 	selectedPlayerTwo: '',
 	selectedPlayers: ['', ''],
 	availableCharactersList: [],
 	isPlayersSelected: false,
+	isPlayerWins: false,
 	onGameStart: () => {},
+	onGameFinish: () => {},
 	onSelectCharacter: (type) => {},
 	onSelectPlayers: (player) => {},
 	onPlayersSelected: () => {},
 	onAvailableCharactersList: (payload) => {},
+	onPlayerWins: (playerNumber) => {},
+	onPlayAgain: () => {},
 });
 
 export const ContextProvider = ({ children }) => {
-	const [gameStarted, setGameStarted] = useState(false);
+	const [isGameStarted, setIsGameStarted] = useState(false);
+	const [isGameFinished, setIsGameFinished] = useState(false);
 	const [selectedCharacters, setSelectedCharacters] = useState('');
 	const [availableCharactersList, setAvailableCharactersList] = useState([]);
 	const [selectedPlayers, setSelectedPlayers] = useState([]);
 	const [isPlayersSelected, setIsPlayersSelected] = useState(false);
-
-	useEffect(() => {
-		const storedGameStatus = localStorage.getItem('gameStarted');
-		const storedSelectedCharacters = localStorage.getItem('selectedCharacters');
-
-		if(storedSelectedCharacters) setSelectedCharacters(storedSelectedCharacters);
-		if (storedGameStatus === '1') setGameStarted(true);
-	}, [gameStarted, selectedCharacters])
+	const [isPlayerWins, setIsPlayerWins] = useState(0);
 
 	const onGameStart = () => {
-		setGameStarted(true);
-		localStorage.setItem('gameStarted', '1');
+		setIsGameStarted(true);
 	}
+
+	const onGameFinish = () => {
+		setIsGameFinished(true);
+	}
+
+	const onPlayAgain = () => {
+		setIsGameStarted(true);
+		setIsGameFinished(false);
+		setIsPlayersSelected(false);
+		setSelectedCharacters('');
+		setSelectedPlayers([]);
+	};
+
+	const onPlayerWins = (playerNumber) => setIsPlayerWins(playerNumber);
 
 	const onSelectCharacter = (type) => {
 		setSelectedCharacters(type);
-		localStorage.setItem('selectedCharacters', type);
 	}
 
 	const onSelectPlayers = (selectedPlayers) => {
@@ -52,16 +63,21 @@ export const ContextProvider = ({ children }) => {
 
 	return (
 		<Context.Provider value={{
-			gameStarted: gameStarted,
+			isGameStarted,
+			isGameFinished,
 			selectedCharacters,
 			selectedPlayers,
 			isPlayersSelected,
 			availableCharactersList,
+			isPlayerWins,
 			onGameStart,
+			onGameFinish,
 			onSelectCharacter,
 			onSelectPlayers,
 			onPlayersSelected,
-			onAvailableCharactersList
+			onAvailableCharactersList,
+			onPlayerWins,
+			onPlayAgain
 		}}>{children}
 		</Context.Provider>
 	)

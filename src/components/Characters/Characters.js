@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Container, Grid } from '@mui/material';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { URL_PEOPLE, URL_STARSHIPS } from '../../constants';
 import Context from '../../store/context';
@@ -21,25 +21,28 @@ const Characters = ({ type }) => {
 	}, [characterUrl]);
 
 	if (loader) {
-		return <Box sx={{display: 'flex', justifyContent: 'center'}}><CircularProgress /></Box>
+		return <Box sx={{display: 'flex', justifyContent: 'center', my: 4}}><CircularProgress /></Box>
 	}
 	// get 10 characters from the list
 	const characterList = availableCharactersList.slice(0, 10);
 
 	return (
-		<>
-			<h2 style={{ textAlign: 'center' }}>{`Select player ${selectedPlayers.length + 1}`}</h2>
-			{characterList && characterList.map(character => (
-				<Character
-					key={character.name}
-					name={character.name}
-					mass={character.mass}
-					crew={character.crew}
-					type={type}
-				/>
-			))}
-		</>
+		<Container xs={10}>
+			<Grid container spacing={2} maxWidth="lg">
+				<Grid item xs={12}><h2 style={{ textAlign: 'center' }}>{`Select player ${selectedPlayers.length + 1}`}</h2></Grid>
 
+				{characterList && characterList.map(character => (
+					<Grid key={character.name} item xs={3}>
+						<Character
+							name={character.name}
+							mass={character.mass}
+							crew={character.crew}
+							type={type}
+						/>
+					</Grid>
+				))}
+			</Grid>
+		</Container>
 	)
 };
 
