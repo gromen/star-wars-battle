@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import { useContext } from 'react';
 import Context from '../../store/context';
 import Character from '../Characters/Character';
