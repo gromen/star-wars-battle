@@ -60,7 +60,9 @@ const SelectedPlayers = () => {
 				<Grid item justifyContent="center">
 					<PlayerWinner playerOne={playerOne} playerTwo={playerTwo}/>
 				</Grid>
-				<ActionButtons onClickStartBattle={onClickStartBattle} />
+				<Grid container justifyContent="center" my={2}>
+					<ActionButtons onClickStartBattle={onClickStartBattle} />
+				</Grid>
 			</Grid>
 		</>
 	);

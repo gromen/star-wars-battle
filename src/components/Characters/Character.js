@@ -19,10 +19,11 @@ const Character = ({ type, name = type, crew, mass }) => {
 		newSelectedPlayers.push(name);
 
 		if (newSelectedPlayers.length <= 2) {
-			onSelectPlayers([...newSelectedPlayers])
+			onSelectPlayers([...newSelectedPlayers]);
 		}
 		if (newSelectedPlayers.length === 2) {
-			onPlayersSelected();
+			//delay for possibility to see selected players in toolbar at the top
+			setTimeout(onPlayersSelected, 1000);
 		}
 	};
 

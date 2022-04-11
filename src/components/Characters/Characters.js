@@ -30,10 +30,14 @@ const Characters = ({ type }) => {
 		<Container xs={10}>
 			<Grid container spacing={2} maxWidth="lg">
 				<AppBar>
-					<Toolbar>
-						<Typography variant="h6" component="div">
+					<Toolbar style={{ justifyContent: 'space-around' }}>
+						{selectedPlayers.length > 0 && <Typography variant="h6" fontSize={14} component="div">
+							<div>{selectedPlayers[0] && `Player ${selectedPlayers.length}: ${selectedPlayers[0]}`}</div>
+							<div>{selectedPlayers[1] && `Player ${selectedPlayers.length}: ${selectedPlayers[1]}`}</div>
+						</Typography>}
+						{selectedPlayers.length < 2 && <Typography variant="h6" component="div" textAlign="right">
 							{`Select player ${selectedPlayers.length + 1}`}
-						</Typography>
+						</Typography>}
 					</Toolbar>
 				</AppBar>
 
