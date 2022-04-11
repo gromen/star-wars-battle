@@ -6,7 +6,7 @@ import SelectedPlayers from '../components/Players/SelectedPlayers';
 import Context from '../store/context';
 
 const Game = () => {
-	const { selectedCharacters, isPlayersSelected } = useContext(Context);
+	const { selectedCharacters, isPlayersSelected, onSelectCharacter } = useContext(Context);
 
 	return (
 		<Grid container justifyContent="center" spacing={3}>
@@ -15,10 +15,10 @@ const Game = () => {
 					<Grid item xs={12}><h1 style={{ textAlign: 'center' }}>Select character</h1></Grid>
 
 					<Grid item xs={6} textAlign="right">
-						<Character type="starship"/>
+						<Character type="starship" onClickCharacter={() => onSelectCharacter('starship')}/>
 					</Grid>
 					<Grid item xs={6} textAlign="left">
-						<Character type="people"/>
+						<Character type="people" onClickCharacter={() => onSelectCharacter('people')}/>
 					</Grid>
 				</>
 			)}

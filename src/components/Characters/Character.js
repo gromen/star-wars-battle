@@ -4,31 +4,12 @@ import Context from '../../store/context';
 import imagePeople from '../../assets/people.png';
 import imageStarship from '../../assets/starship.png';
 
-const Character = ({ type, name = type, crew, mass }) => {
-	const {
-		onSelectCharacter,
-		selectedCharacters,
-		onSelectPlayers,
-		selectedPlayers,
-		onPlayersSelected
-	} = useContext(Context);
+const Character = ({ type, name = type, crew, mass, onClickCharacter }) => {
+	const { selectedCharacters } = useContext(Context);
 	const typePeople = type === 'people' || selectedCharacters === 'people';
-	const newSelectedPlayers = [...selectedPlayers];
-
-	const onSelectPlayer = () => {
-		newSelectedPlayers.push(name);
-
-		if (newSelectedPlayers.length <= 2) {
-			onSelectPlayers([...newSelectedPlayers]);
-		}
-		if (newSelectedPlayers.length === 2) {
-			//delay for possibility to see selected players in toolbar at the top
-			setTimeout(onPlayersSelected, 1000);
-		}
-	};
 
 	return (
-		<ButtonBase onClick={!selectedCharacters ? () => onSelectCharacter(type) : onSelectPlayer}>
+		<ButtonBase onClick={onClickCharacter}>
 			<Card>
 				<CardMedia
 					component="img"

@@ -6,7 +6,13 @@ import { fetchResource } from '../../utils/utils';
 import Character from './Character';
 
 const Characters = ({ type }) => {
-	const { selectedPlayers, onAvailableCharactersList, availableCharactersList } = useContext(Context);
+	const {
+		selectedPlayers,
+		onAvailableCharactersList,
+		availableCharactersList,
+		onSelectPlayers,
+		onPlayersSelected
+	} = useContext(Context);
 	const [loader, setLoader] = useState(false);
 
 	const characterUrl = useMemo(() => type === 'people' ? URL_PEOPLE : URL_STARSHIPS, [type]);
@@ -23,6 +29,20 @@ const Characters = ({ type }) => {
 	if (loader) {
 		return <Box sx={{display: 'flex', justifyContent: 'center', my: 4}}><CircularProgress /></Box>
 	}
+
+	const onClickCharacter = (name) => {
+		const newSelectedPlayers = [...selectedPlayers];
+		newSelectedPlayers.push(name);
+
+		if (newSelectedPlayers.length <= 2) {
+			onSelectPlayers([...newSelectedPlayers]);
+		}
+		if (newSelectedPlayers.length === 2) {
+			//delay for possibility to see selected players in toolbar at the top
+			setTimeout(onPlayersSelected, 1000);
+		}
+	};
+
 	// get 10 characters from the list
 	const characterList = availableCharactersList.slice(0, 10);
 
@@ -47,6 +67,7 @@ const Characters = ({ type }) => {
 							mass={character.mass}
 							crew={character.crew}
 							type={type}
+							onClickCharacter={() => onClickCharacter(character.name)}
 						/>
 					</Grid>
 				))}
