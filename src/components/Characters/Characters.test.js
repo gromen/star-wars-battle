@@ -8,7 +8,7 @@ const customRender = (ui, {providerProps, ...renderOptions}) => {
 		<Context.Provider value={providerProps}>{ui}</Context.Provider>,
 		renderOptions,
 	)
-}
+};
 
 describe('Characters component', () => {
 	test('renders people characters when people character type is selected', async () => {
@@ -29,6 +29,7 @@ describe('Characters component', () => {
 				"name": "Luke Skywalker",
 			}]
 		};
+
 		customRender(<Characters type="people" />, { providerProps });
 
 		userEvent.click(await screen.findByText('Luke Skywalker'));
