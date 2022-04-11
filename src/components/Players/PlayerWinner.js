@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import { useContext } from 'react';
 import Context from '../../store/context';
 import Character from '../Characters/Character';
@@ -17,7 +16,7 @@ const PlayerWinner = ({ playerOne, playerTwo }) => {
 					mass={isPlayerOneWins ? playerOne.mass : playerTwo.mass}
 				/>
 			</>}
-			{isPlayerWins === 0 && 'We have a draw :)'}
+			{isPlayerWins === 3 && 'We have a draw :)'}
 		</>
 	)
 };

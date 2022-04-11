@@ -31,7 +31,7 @@ const SelectedPlayers = () => {
 			onPlayerWins(2);
 		} else {
 			onGameFinish();
-			onPlayerWins(0);
+			onPlayerWins(3);
 		}
 	}
 
