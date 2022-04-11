@@ -12,11 +12,9 @@ function App() {
     <div className="App">
 			{!isGameStarted &&
 				<Grid container justifyContent="center" alignItems="center" height="100vh">
-					<Grid item xs={8} textAlign="center">
+					<Grid item xs={8} xl={3} textAlign="center">
 						<img src={LogoStarWarsUrl} alt="star wars logo" width="100%"/>
 						<Button onClick={() => onGameStart(true)} variant="contained" endIcon={<SendIcon/>} size="large" >Start Game</Button>
-					</Grid>
-					<Grid item xs={8} textAlign="center">
 					</Grid>
 				</Grid>
 			}
