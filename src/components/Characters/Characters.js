@@ -32,15 +32,14 @@ const Characters = ({ type }) => {
 				<AppBar>
 					<Toolbar style={{ justifyContent: 'space-around' }}>
 						{selectedPlayers.length > 0 && <Typography variant="h6" fontSize={14} component="div">
-							<div>{selectedPlayers[0] && `Player ${selectedPlayers.length}: ${selectedPlayers[0]}`}</div>
-							<div>{selectedPlayers[1] && `Player ${selectedPlayers.length}: ${selectedPlayers[1]}`}</div>
+							<div>{selectedPlayers[0] && `Player ${selectedPlayers.indexOf(selectedPlayers[0]) + 1}: ${selectedPlayers[0]}`}</div>
+							<div>{selectedPlayers[1] && `Player ${selectedPlayers.indexOf(selectedPlayers[1]) + 1}: ${selectedPlayers[1]}`}</div>
 						</Typography>}
 						{selectedPlayers.length < 2 && <Typography variant="h6" component="div" textAlign="right">
 							{`Select player ${selectedPlayers.length + 1}`}
 						</Typography>}
 					</Toolbar>
 				</AppBar>
-
 				{characterList && characterList.map(character => (
 					<Grid key={character.name} item xs={6} lg={2} mt={14}>
 						<Character
