@@ -16,7 +16,7 @@ const PlayerWinner = ({ playerOne, playerTwo }) => {
 					mass={isPlayerOneWins ? playerOne.mass : playerTwo.mass}
 				/>
 			</>}
-			{isPlayerWins === 3 && 'We have a draw :)'}
+			{isPlayerWins === 0 && isGameFinished  && 'We have a draw :)'}
 		</>
 	)
 };

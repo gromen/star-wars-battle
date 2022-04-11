@@ -27,7 +27,7 @@ export const ContextProvider = ({ children }) => {
 	const [availableCharactersList, setAvailableCharactersList] = useState([]);
 	const [selectedPlayers, setSelectedPlayers] = useState([]);
 	const [isPlayersSelected, setIsPlayersSelected] = useState(false);
-	const [isPlayerWins, setIsPlayerWins] = useState(0);
+	const [isPlayerWins, setIsPlayerWins] = useState(null);
 
 	const onGameStart = () => {
 		setIsGameStarted(true);
