@@ -3,7 +3,8 @@ import Context from '../../store/context';
 import Character from '../Characters/Character';
 
 const Player = ({ name, crew, mass, playerNumber }) => {
-	const { isGameFinished } = useContext(Context);
+	const { state } = useContext(Context);
+	const { isGameFinished } = state;
 
 	return (
 		<>

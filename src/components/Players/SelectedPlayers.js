@@ -6,14 +6,8 @@ import Player from './Player';
 import PlayerWinner from './PlayerWinner';
 
 const SelectedPlayers = () => {
-	const {
-		selectedCharacters,
-		availableCharactersList,
-		selectedPlayers,
-		isGameFinished,
-		onGameFinish,
-		onPlayerWins,
-	} = useContext(Context);
+	const { state, dispatch } = useContext(Context);
+	const { availableCharactersList, selectedPlayers, isGameFinished, selectedCharacters } = state;
 
 	const [ playerOne ] = availableCharactersList.filter(character => character.name === selectedPlayers[0]);
 	const [ playerTwo ] = availableCharactersList.filter(character => character.name === selectedPlayers[1]);
@@ -24,17 +18,16 @@ const SelectedPlayers = () => {
 		const playerTwoStrength = isSelectedPeople ? +playerTwo.mass : +playerTwo.crew.replace(/[,.-]/g, '');
 
 		if (playerOneStrength > playerTwoStrength) {
-			onGameFinish();
-			onPlayerWins(1);
+			dispatch({ type: 'SET_GAME_FINISH' });
+			dispatch({ type: 'SET_PLAYER_WINNER', payload: 1 });
 		} else if(playerOneStrength < playerTwoStrength) {
-			onGameFinish();
-			onPlayerWins(2);
+			dispatch({ type: 'SET_GAME_FINISH' });
+			dispatch({ type: 'SET_PLAYER_WINNER', payload: 2 });
 		} else {
-			onGameFinish();
-			onPlayerWins(0);
+			dispatch({ type: 'SET_GAME_FINISH' });
+			dispatch({ type: 'SET_PLAYER_WINNER', payload: 0 });
 		}
 	}
-
 
 	return (
 		<>

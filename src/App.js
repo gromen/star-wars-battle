@@ -6,7 +6,8 @@ import Context from './store/context';
 import LogoStarWarsUrl from './assets/star-wars.svg';
 
 function App() {
-	const { isGameStarted, onGameStart } = useContext(Context);
+	const { state, dispatch } = useContext(Context);
+	const { isGameStarted } = state;
 
   return (
     <div className="App">
@@ -14,7 +15,7 @@ function App() {
 				<Grid container justifyContent="center" alignItems="center" height="100vh">
 					<Grid item xs={8} xl={3} textAlign="center">
 						<img src={LogoStarWarsUrl} alt="star wars logo" width="100%"/>
-						<Button onClick={() => onGameStart(true)} variant="contained" endIcon={<SendIcon/>} size="large" >Start Game</Button>
+						<Button onClick={() => dispatch({type: 'SET_GAME_START', payload: true})} variant="contained" endIcon={<SendIcon/>} size="large" >Start Game</Button>
 					</Grid>
 				</Grid>
 			}

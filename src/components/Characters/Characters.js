@@ -6,15 +6,9 @@ import { fetchResource } from '../../utils/utils';
 import Character from './Character';
 
 const Characters = ({ type }) => {
-	const {
-		selectedPlayers,
-		onAvailableCharactersList,
-		availableCharactersList,
-		onSelectPlayers,
-		onPlayersSelected
-	} = useContext(Context);
+	const { state, dispatch } = useContext(Context);
+	const { availableCharactersList, selectedPlayers } = state;
 	const [loader, setLoader] = useState(false);
-
 	const characterUrl = useMemo(() => type === 'people' ? URL_PEOPLE : URL_STARSHIPS, [type]);
 
 	useEffect(() => {
@@ -22,7 +16,7 @@ const Characters = ({ type }) => {
 
 		fetchResource(characterUrl).then(data => {
 			setLoader(false);
-			onAvailableCharactersList(data);
+			dispatch({type: 'SET_AVAILABLE_CHARACTERS', payload: data });
 		}).catch(error => console.error(error));
 	}, [characterUrl]);
 
@@ -32,17 +26,16 @@ const Characters = ({ type }) => {
 
 	const onClickCharacter = (name) => {
 		const newSelectedPlayers = [...selectedPlayers];
-		newSelectedPlayers.push(name);
 
+		newSelectedPlayers.push(name);
 		if (newSelectedPlayers.length <= 2) {
-			onSelectPlayers([...newSelectedPlayers]);
+			dispatch({type: 'SET_SELECT_PLAYERS', payload: [...newSelectedPlayers]});
 		}
 		if (newSelectedPlayers.length === 2) {
 			//delay for possibility to see selected players in toolbar at the top
-			setTimeout(onPlayersSelected, 1000);
+			setTimeout(() => dispatch({ type: 'SET_IS_PLAYERS_SELECTED', payload: true }), 1000);
 		}
 	};
-
 	// get 10 characters from the list
 	const characterList = availableCharactersList.slice(0, 10);
 
