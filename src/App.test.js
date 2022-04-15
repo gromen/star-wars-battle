@@ -1,24 +1,19 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
 import App from './App';
-import { ContextProvider } from './store/context';
+import { customRender } from './utils/testUtils';
 
 describe('App component', () => {
-	test('renders Start Game button when starting the game', () => {
-		render(<App />);
+  test('renders Start Game button when starting the game', () => {
+    const providerProps = {
+      state: {
+        isGameStarted: false,
+      },
+    };
 
-		const startGameButton = screen.getByText('start game', { exact: false });
+    customRender(<App />, { providerProps });
 
-		expect(startGameButton).toBeInTheDocument();
-	});
+    const startGameButton = screen.getByText('start game', { exact: false });
 
-	test('renders Select Character view after clicking Start Game button', () => {
-		render(<ContextProvider><App /></ContextProvider>);
-		userEvent.click(screen.getByText('Start Game', { exact: false }));
-
-		const selectCharacterTitle = screen.getByText('select character', { exact: false });
-
-		expect(selectCharacterTitle).toBeInTheDocument();
-	});
-})
-
+    expect(startGameButton).toBeInTheDocument();
+  });
+});

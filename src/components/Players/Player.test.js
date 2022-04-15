@@ -1,14 +1,21 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { customRender } from '../../utils/testUtils';
 import Player from './Player';
 
 describe('Player component', () => {
-	test('renders player 1 character details', () => {
-		render(<Player name="Luke" mass={120} playerNumber={1} />);
+  test('renders player 1 character details', () => {
+    const providerProps = {
+      state: {
+        isGameFinished: false,
+      },
+    };
 
-		const heading = screen.getByRole('heading', { level: 2 });
-		const headingText = screen.getByText('Player 1');
+    customRender(<Player name="Luke" mass={120} playerNumber={1} />, { providerProps });
 
-		expect(heading).toBeInTheDocument();
-		expect(headingText).toBeInTheDocument();
-	});
+    const heading = screen.getByRole('heading', { level: 2 });
+    const headingText = screen.getByText('Player 1');
+
+    expect(heading).toBeInTheDocument();
+    expect(headingText).toBeInTheDocument();
+  });
 });

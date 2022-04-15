@@ -1,39 +1,66 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { customRender } from '../utils/testUtils';
 import Game from './Game';
 
 describe('Game component', () => {
-	test('renders people character type', () => {
-		render(<Game />);
+  test('renders people character type', () => {
+    const providerProps = {
+      state: {
+        selectedCharacters: false,
+      },
+    };
 
-		const peopleCharacter = screen.getByText('people');
+    customRender(<Game />, { providerProps });
 
-		expect(peopleCharacter).toBeInTheDocument();
-	});
+    const peopleCharacter = screen.getByText('people');
 
-	test('renders starship character type', () => {
-		render(<Game />);
+    expect(peopleCharacter).toBeInTheDocument();
+  });
 
-		const starshipCharacter = screen.getByText('starship');
+  test('renders starship character type', () => {
+    const providerProps = {
+      state: {
+        selectedCharacters: false,
+      },
+    };
 
-		expect(starshipCharacter).toBeInTheDocument();
-	});
+    customRender(<Game />, { providerProps });
 
-	test('renders people characters to select, after clicking people character', async () => {
-		render(<Game />);
+    const starshipCharacter = screen.getByText('starship');
 
-		userEvent.click(screen.getByText('people'));
-		const peopleCharacter = await screen.findAllByRole('button');
+    expect(starshipCharacter).toBeInTheDocument();
+  });
 
-		expect(peopleCharacter).not.toHaveLength(0);
-	});
+  test('renders people characters to select, after clicking people character', async () => {
+    const providerProps = {
+      state: {
+        selectedCharacters: false,
+      },
+      dispatch: jest.fn(),
+    };
 
-	test('renders starship characters to select, after clicking starship character', async () => {
-		render(<Game />);
+    customRender(<Game />, { providerProps });
 
-		userEvent.click(screen.getByText('starship'));
-		const starshipCharacter = await screen.findAllByRole('button');
+    userEvent.click(screen.getByText('people'));
+    const peopleCharacter = await screen.findAllByRole('button');
 
-		expect(starshipCharacter).not.toHaveLength(0);
-	});
+    expect(peopleCharacter).not.toHaveLength(0);
+  });
+
+  test('renders starship characters to select, after clicking starship character', async () => {
+    const providerProps = {
+      state: {
+        selectedCharacters: false,
+      },
+      dispatch: jest.fn(),
+    };
+
+    customRender(<Game />, { providerProps });
+
+    userEvent.click(screen.getByText('starship'));
+    const starshipCharacter = await screen.findAllByRole('button');
+
+    expect(starshipCharacter).not.toHaveLength(0);
+  });
 });
