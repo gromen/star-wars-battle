@@ -7,7 +7,7 @@ const ActionButtons = ({ onClickStartBattle }) => {
   const { isPlayersSelected, isGameFinished } = state;
 
   const onClickPlayAgain = () => {
-    dispatch({ type: 'SET_GAME_FINISH' });
+    dispatch({ type: 'SET_GAME_FINISH', payload: false });
     dispatch({ type: 'SET_IS_PLAYERS_SELECTED', payload: false });
     dispatch({ type: 'SET_CHARACTERS', payload: '' });
     dispatch({ type: 'SET_SELECT_PLAYERS', payload: [] });

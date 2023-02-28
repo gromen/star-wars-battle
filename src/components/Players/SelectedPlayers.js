@@ -26,15 +26,16 @@ const SelectedPlayers = () => {
       : +playerTwo.crew.replace(/[,.-]/g, '');
 
     if (playerOneStrength > playerTwoStrength) {
-      dispatch({ type: 'SET_GAME_FINISH' });
       dispatch({ type: 'SET_PLAYER_WINNER', payload: 1 });
+      //   dispatch({ type: 'SET_GAME_FINISH', payload: true });
     } else if (playerOneStrength < playerTwoStrength) {
-      dispatch({ type: 'SET_GAME_FINISH' });
       dispatch({ type: 'SET_PLAYER_WINNER', payload: 2 });
+      //   dispatch({ type: 'SET_GAME_FINISH', payload: true });
     } else {
-      dispatch({ type: 'SET_GAME_FINISH' });
       dispatch({ type: 'SET_PLAYER_WINNER', payload: 0 });
+      //   dispatch({ type: 'SET_GAME_FINISH', payload: true });
     }
+    dispatch({ type: 'SET_GAME_FINISH', payload: true });
   };
 
   return (

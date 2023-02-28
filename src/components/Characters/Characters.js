@@ -8,21 +8,31 @@ import Character from './Character';
 const Characters = ({ type }) => {
   const { state, dispatch } = useContext(Context);
   const { availableCharactersList, selectedPlayers } = state;
-  const [loader, setLoader] = useState(false);
+  const [status, setStatus] = useState('idle');
   const characterUrl = useMemo(() => (type === 'people' ? URL_PEOPLE : URL_STARSHIPS), [type]);
 
   useEffect(() => {
-    setLoader(true);
+    setStatus('loading');
+    const selectedCharacterType = localStorage.getItem('selectedCharacterType');
+
+    if (selectedCharacterType === type) {
+      const charactersCached = JSON.parse(localStorage.getItem('selectedCharacters'));
+      dispatch({ type: 'SET_AVAILABLE_CHARACTERS', payload: charactersCached });
+      setStatus('loaded');
+      return;
+    }
 
     fetchResource(characterUrl)
       .then((data) => {
-        setLoader(false);
         dispatch({ type: 'SET_AVAILABLE_CHARACTERS', payload: data });
+        localStorage.setItem('selectedCharacters', JSON.stringify(data));
+        localStorage.setItem('selectedCharacterType', type);
+        setStatus('loaded');
       })
       .catch((error) => console.error(error));
   }, [characterUrl]);
 
-  if (loader) {
+  if (status === 'loading') {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
         <CircularProgress />
